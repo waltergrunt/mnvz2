@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>Plattform Maßnahmenvollzug</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/animate.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    p.claim {text-align:left;}
+  	body{
+  		font-family: Rubik, sans-serif;
+		font-style: normal;
+		font-weight: 400;
+  	}
+  	.navbar {
+  		margin-bottom: 0;
+  		border-radius: 0;
+  		background-color: #fff;
+  		color: #000;
+  		padding: 1% 0;
+  		font-size: 1.2em;
+  		border: 0;
+  	}
+
+  	.navbar-default {
+      max-width: 1000px;
+      margin:auto;
+	}
+
+  	.navbar-brand {
+  		float: left;
+  		min-height: 55px;
+  		padding: 0 15px 5px;
+  	}
+  	.navbar-default .navbar-nav .active a, .navbar-default .navbar-nav .active a:focus, .navbar-default .navbar-nav .active a:hover {
+  		color: #000;
+  		background-color: white;
+  	}
+
+  	.navbar .navbar-nav, .center {
+	    display: inline-block;
+	    float: none;
+	}
+
+	.navbar .navbar-collapse {
+	    text-align: right;
+	}
+
+  	.navbar-default .navbar-nav li a {
+  		color:#d5d5d5;
+  		text-transform:uppercase;
+  		font-weight: 700;
+  		transition: all ease 0.3s;
+  	}
+
+  	.carousel-caption {
+  		top: 50%;
+  		transform: translateY(-50%);
+  		text-transform:uppercase;
+  	}
+  	.btn{
+  		font-size: 18px;
+  		color: #000;
+  		padding: 22px 42px;
+  		border: 2px solid #000;
+  		margin: 30px auto;
+  		text-transform: uppercase;
+  		transition: all ease 0.3s;
+  	}
+  	button.btn:hover, button.btn:focus{
+  		background:#000;
+  		color:#fff;
+  	}
+  	h2 {
+  		font-weight:900;
+  	}
+  	h4 {
+  		font-weight:700;
+  		font-size: 22px;
+  	}
+
+  	.headpic{
+  		transform: translateX(0px);
+  		z-index: -1;
+  		-webkit-animation-delay: 0.3s;
+  		-moz-animation-delay: 0.3s;
+  		-o-animation-delay: 0.3s;
+  		-ms-animation-delay: 0.3s;
+  	}
+  	.headpic img {
+  		
+    	-webkit-filter: grayscale(100%) brightness(1.5);
+  		filter: grayscale(100%) brightness(1.5);
+  	}
+
+  	img.justiz{
+  		-webkit-filter: grayscale(100%);
+  		filter: grayscale(100%);
+  	}
+  	p, ol li {
+      font-size:18px;
+    }
+
+    ol li ol {
+      list-style-type: lower-alpha;
+    }
+  	.icon {
+  		max-width:200px;
+  		margin: 1% auto;
+  	}
+  	.container{
+  		margin:4% auto;
+  	}
+  	#overlay{
+  		position: fixed;
+  		display: none;
+  		width: 100%;
+  		height:100%;
+  		top: 0; 
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+  		background-color: rgba(256,256,256,0.9);
+  		z-index: 2;
+  		padding-top: 100px;
+  		height:100%;
+  		overflow: scroll;
+  	}
+
+  	.close {
+  		font-size:50px;
+  		transition: all ease 0.3s;
+  	}
+
+  	button.close:hover {
+  		cursor:inherit;
+  		overflow: hidden;
+  	}
+
+  	#overlay .container{
+  		transition: 2s;
+  	}
+
+  	#overlay .fadein{
+  		opacity: 1;
+  	}
+
+  	.content {
+  		height: 100%;
+  		overflow:auto;
+  	}
+  	p.bold{
+  		font-weight:700;
+  		font-size: 30px;
+  		line-height:130%;
+  	}
+  	p.semibold{
+  		font-size: 24px;
+  		line-height:150%;
+  		margin-top: 25px;
+  	}
+  	p.footnote{
+  		font-size: 12px;
+  	}
+
+    .logos .row {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    .logos .row div{
+    }
+    .logos .row img{
+      max-height: 130px;
+      margin: auto;
+    }
+    .logos a {
+      text-decoration:none;
+      color:#000;
+    }
+    .logos a:hover, .logos a:focus {
+      color: #000;
+    }
+
+    .img-box{
+      margin:20px auto;
+      height:130px;
+      max-width: 80%;
+      vertical-align: middle;
+    }
+
+    .img-text{
+      margin: 20px auto;
+      max-width: 90%;
+      height: 40px;
+    }
+
+    .logo-wrapper{
+      width:98%;
+      margin:auto;
+      border: 1px solid #d5d5d5;
+      transition: all ease 0.3s;
+      vertical-align: middle;
+      display:inline-block;
+    }
+
+    .logo-wrapper:hover{
+      border: 1px solid black;
+    }
+
+    .progress{
+      margin: 30px auto;
+    }
+
+    .progress span {
+   }
+
+   a {
+    color:orange;
+   }
+
+   a:focus, a:hover {
+    color: #ffd280;
+   }
+
+   .progtext {
+    color: #337ab7;
+   }
+
+  	footer {
+  		width:100%;
+  		border-top: 1px solid #d5d5d5;
+  		padding: 3%;
+  	}
+  	.fa{
+  		padding:15px;
+  		font-size: 30px;
+  		color: #FFF;
+  	}
+
+  	.fa:hover{
+  		color: #D5D5D5;
+  		text-decoration: none;
+  	}
+
+    ol {
+      padding: 20px auto;
+    }
+
+  	@media (min-width: 1400px) {
+		.container {
+    		width: 1370px;
+		}
+		.headtxt {
+			margin: 0 0px;
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.headtxt h2{
+	  		transform: translateX(-100px);
+	  		margin: 7% auto;
+	  	}
+	  	.headpic{
+	  		transform: translateX(0px);
+	  		z-index: -1;
+	  	}
+	}
+
+	@media (min-width: 900px){
+		#overlay {
+			margin-left: -30px;
+		}
+		.navbar-default .navbar-nav li:not(:last-child) {
+			margin-right: 40px;
+		}
+    .headtxt-h h2{
+      font-size: 3em;
+      margin-top:0px;
+    }
+	}
+
+  	@media (max-width: 900px) {
+  		.fa {
+  			font-size: 20px;
+  			padding: 10px;
+  		}
+  		.headtxt h2 {
+        word-wrap: break-word;
+      }
+      p.claim{
+        text-align:left;
+      }
+  	}
+
+  	@media (max-width: 600px) {
+  		.carousel-caption{
+  			display:none;
+  		}
+	  	#icon {
+	  		max-width: 150px;
+	  	}
+	  	h2 {
+	  		font-size: 1.7em ;
+	  	}
+	  	body {}
+  	}
+
+  	.headtxt-p {
+  		-webkit-animation-delay: 0.5s;
+  		-moz-animation-delay: 0.5s;
+  		-o-animation-delay: 0.5s;
+  		-ms-animation-delay: 0.5s;
+  	}
+  	.headtxt-h {
+  		-webkit-animation-delay: 0.3s;
+  		-moz-animation-delay: 0.3s;
+  		-o-animation-delay: 0.3s;
+  		-ms-animation-delay: 0.3s;
+  	}
+  	.signup{
+  		-webkit-animation-delay: 1s;
+  		-moz-animation-delay: 1s;
+  		-o-animation-delay: 1s;
+  		-ms-animation-delay: 1s;
+  	}
+
+  </style>
+</head>
+<body>
+	<div id="overlay">
+		<div class="container" onclick="off()">
+			<div class="row">
+				<div class="col-sm-4 col-xs-9" onclick="event.stopPropagation()">
+					<p class="bold">Hier erreichen Sie uns.</p>
+					<p class="semibold"><a href="mailto:buero@plattform-mnvz.at" target:"_top">buero@plattform-mnvz.at</a><br>Markgraf-Rüdiger-Strasse 12/3<br>1150 Wien<br>Österreich<br>Tel +43 1 786 42 45</p>
+				</div>
+        <div class="col-sm-1 col-xs-1">
+          <button type="button" class="close" aria-label="Close" onclick="off()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid animated fadeInUp">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+          <a class="navbar-brand img-responsive" href="#"><img style="" src="img/plattformklein.png"></a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="nav-item"><a href="#plattform">Die Plattform</a></li>
+            <li class="nav-item"><a href="forderungen.html">Forderungen</a></li>
+						<li class="nav-item" onclick="on()"><a href="#">Kontakt</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container header">
+			<div class="row">
+				<div class="col-lg-6 headtxt-h animated fadeInUp">
+            <h2>Wir fordern einen menschenrechts-konformen Maßnahmenvollzug</h2>
+            <p class="semibold">Seit 40 Jahren warten psychisch kranke Menschen und deren Angehörige auf rechtliche und strukturelle Verbesserungen des menschenrechtlich äußerst problematischen Maßnahmenvollzugs in Österreich.</p>
+          </div>
+				<div class="col-lg-6 col-md-12 headtxt">
+					<div class="headtxt-p animated fadeInUp">
+						<p>            
+            Es fehlen einheitliche, menschenrechtskonforme rechtliche Regelungen. Mangelhafte strukturelle Rahmenbedingungen sowie geringe Qualität der gerichtlichen Verfahren und Sachverständigen-Gutachten führen zu unverhältnismäßig und ungerechtfertigt langen Aufenthalten von psychisch kranken Menschen in Justizanstalten oder Psychiatrien.</p>
+            <p>Die Schaffung eines Maßnahmenvollzugs-Gesetzes, das den Rechtsschutz der betroffenen Menschen sicherstellt und die Voraussetzungen für eine erfolgreiche Therapie und Wiedereingliederung in die Gesellschaft schafft, ist daher dringend erforderlich. Der Europäische Gerichtshof für Menschenrechte (EGMR) verurteilte Österreich wiederholte Male für die im Maßnahmenvollzug herrschenden Missstände (zuletzt 20.07.2017, 11537/11 Lorenz gg Österreich).
+            </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<div class="container signup text-center animated fadeIn">
+			<div class="row">
+				<div class="col-lg-7 center">
+						<p class="claim">Bereits 2015 wurde von namhaften ExpertInnen in einem vom Justizministerium beauftragten Bericht der dringende Reformbedarf des Maßnahmenvollzugs festgestellt. Es wurden <a href="
+https://www.justiz.gv.at/web2013/file/2c94848a4b074c31014b3ad6caea0a71.de.0/bericht%20ag%20ma%C3%9Fnahmenvollzug.pdf" target="_blank">92 Empfehlungen für die Schaffung eines zeitgemäßen und menschenrechtskonformen Maßnahmenvollzugs</a> erarbeitet, die bis heute auf ihre Umsetzung warten. Wir fordern daher, dass der Maßnahmenvollzug nach Jahrzehnten des Stillstands endlich auf Grundlage dieser ExpertInnenempfehlungen reformiert wird.</p>
+                        <div>
+<p>Aktuell: 1078 Unterschriften auf Listen, 120 Unterschriften online.</p>
+</div>
+
+						<a href="https://www.parlament.gv.at/SEC/Zustimmen.shtml?ityp=BI&gpCode=XXVI&inr=51"  target="_blank"><button type="button" class="btn btn-default">Jetzt unterzeichnen</button></a>
+				</div>
+			</div>
+		</div>
+
+    <div class="container logos text-center animated fadeIn signup" id="plattform">
+      <div class="row">
+        <h4>Die Plattform wird getragen von</h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="http://www.behindertenanwalt.gv.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/Behindertenanwaltschaft.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Behindertenanwalt</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://www.bizeps.or.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/bizeps.png" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>BIZEPS - Zentrum für Selbstbestimmtes Leben</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="http://www.freiraeume.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/freiräume.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Freiräume - Für Menschen mit psych. Problemen und Krisenerfahrung</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://www.hpe.at/home.html" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/hpe.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>HPE</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="https://www.ifs.at/patientenanwaltschaft.html" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/ifs.png" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>ifs Patientenanwaltschaft</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="http://www.lok.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/lok.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>LOK - Leben ohne Krankenhaus</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="http://bim.lbg.ac.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/bim.JPG" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Ludwig Boltzmann Institut für Menschenrechte</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://www.behindertenrat.at/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/Behindertenrat Logo.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Österreichische Behindertenrat</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="https://www.massnahmenvollzug.com" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/sim_claim.png" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Selbst- und Interessensvertretung zum Maßnahmenvollzug</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://www.vertretungsnetz.at/home/" target="_blank">
+            <div class="logo-wrapper">
+              <div class="img-box">
+                <img src="img/vertretungsnetz.jpg" class="icon img-responsive">
+              </div>
+              <div class="img-text">
+                <h5>Vertretungsnetz</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+		
+		<footer class="container-fluid text-center animated fadeIn signup">
+			<div class="row">
+				<div class="col-sm-4">
+					<a href="impressum.html"><h5>Impressum</h5></a>
+				</div>
+			</div>
+		</footer>
+	</div>
+<script type="text/javascript">
+	function on() {
+	    document.getElementById("overlay").style.display = "inline-block";
+	    document.getElementById("overlay").style.color = "#000000";
+	}
+
+	function off() {
+	    document.getElementById("overlay").style.display = "none";
+	}
+</script>
+</body>
+</html>
